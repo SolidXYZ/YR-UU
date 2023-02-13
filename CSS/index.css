@@ -1,0 +1,443 @@
+html {
+    --total-margin: min(20vw, 20vh);
+    --base-transition-properties: background-color, color, border-color, outline-color, font-size;
+}
+
+* {
+    font-family: Arial;
+}
+
+button, input, p {
+    all: initial;
+    font-family: Arial;
+}
+
+button:not(.fake_button), input[type="button"]:not(.fake_button), input[type="submit"]:not(.fake_button) {
+    text-align: center;
+}
+
+input[type="time"], input[type="date"] {
+    align-items: center;
+    vertical-align: middle;
+}
+
+*, button, input[type="button"], .fake_button_text, input, input[type="text"]::placeholder, input[type="range"]::-webkit-slider-runnable-track, input[type="range"]::-webkit-slider-thumb, input[type="date"]::-webkit-datetime-edit-day-field, input[type="date"]::-webkit-datetime-edit-month-field, input[type="date"]::-webkit-datetime-edit-year-field {
+    transition-duration: var(--transition-time);
+    transition-property: var(--base-transition-properties);
+}
+
+*, button, input[type="button"], .fake_button_text, input:not(input[type="range"]), input[type="range"]::-webkit-slider-runnable-track, input[type="range"]::-webkit-slider-thumb {
+    color: var(--prim-text-col);
+}
+
+*, input {
+    outline-color: var(--select-col);
+}
+
+*:focus, input:focus {
+    --outline-thickness: 2px;
+    outline: var(--outline-thickness) solid var(--select-col);
+    outline-offset: calc(var(--outline-thickness) * -1);
+}
+
+button, input[type="button"], input[type="submit"], input[type="date"], input[type="time"], select {
+    cursor: pointer;
+}
+
+button, input[type="button"], .fake_button_text, input[type="submit"], input[type="number"] {
+    font-size: var(--font-size-medium);
+}
+
+button, input[type="button"], input[type="submit"], input:not(input[type="range"]), select, #main {
+    background-color: var(--light-col);
+}
+
+button, input[type="button"], input[type="submit"], input:not(input[type="range"], #change_color_theme), select, #weather_container {
+    --border-thickness: 1px;
+    border: var(--border-thickness) solid var(--border-col);
+    border-radius: 1px;
+    box-sizing: border-box;
+}
+
+input[type="time"] {
+    font-size: var(--font-size-medium);
+}
+
+input[type="text"]::placeholder {
+    color: var(--sec-text-col);
+    font-size: var(--font-size-medium);
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field, input[type="date"]::-webkit-datetime-edit-year-field {
+    color: var(--sec-text-col);
+}
+
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    font-size: var(--font-size-medium);
+}
+
+input[type="range"] {
+    appearance: none;
+    background: none;
+    padding: 0;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    --dom-size: calc(min(var(--cur-width), var(--cur-height)) / 2.5);
+    width: 100%;
+    height: var(--dom-size);
+    border: calc(var(--dom-size) * 0.1) solid var(--border-col);
+    background-color: var(--light-col);
+    border-radius: calc(var(--dom-size) * 0.5);
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    --dom-size: min(var(--cur-width), var(--cur-height));
+    appearance: none;
+    width: var(--dom-size);
+    height: var(--dom-size);
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    background-color: var(--highlight-col);
+    border-radius: calc(var(--dom-size) * 0.5);
+    cursor: pointer;
+}
+
+select {
+    overflow: hidden;
+    font-size: var(--font-size-medium);
+}
+
+input, select {
+    display: block;
+    margin: 0;
+    padding: 3px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.fake_button_container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.fake_button {
+    all: initial;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.fake_button_text {
+    --pad: 3px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: calc(100% - (var(--pad) * 2));
+    height: calc(100% - (var(--pad) * 2));
+    z-index: 1;
+    padding: var(--pad);
+}
+
+body {
+    margin: 0;
+}
+
+#main {
+    width: 100vw;
+    height: 100vh;
+}
+
+#weather_container {
+    --base-height: calc(100vh - var(--total-margin));
+    --base-width: calc(100vw - var(--total-margin));
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(var(--base-width), var(--base-height) * 1.5);
+    height: var(--base-height);
+    background-color: var(--main-col);
+}
+
+#weather_table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80%;
+}
+
+#option_forms_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - (var(--sub-margin) * 2));
+    height: 20%;
+    padding: var(--sub-margin);
+}
+
+.option_form_container {
+    width: 100%;
+    height: var(--cur-height);
+}
+
+.cell_category {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.category_name, .time_periods_cell {
+    background-color: var(--highlight-col);
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.category_container:nth-child(odd) > :not(.category_name) {
+    background-color: var(--tab-sec-col);
+}
+
+.category_container:nth-child(even) > :not(.category_name) {
+    background-color: var(--tab-prim-col);
+}
+
+.category_name, .time_periods_cell, .info_cell {
+    font-family: Arial;
+    font-size: var(--font-size-medium);
+}
+
+.weather_symbol_icon {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.weather_wind_icon {
+    position: relative;
+    left: 10px;
+    top: 10px;
+}
+
+.option_form {
+    width: 100%;
+    height: 100%;
+}
+
+#search_form_container {
+    --width: 20%;
+    --height: 100%;
+    width: var(--width);
+    height: var(--height);
+}
+
+#settings_form_container {
+    --width: 80%;
+    --height: 100%;
+    width: var(--width);
+    height: var(--height);
+}
+
+#search_form, #settings_form {
+    position: relative;
+    display: flex;
+}
+
+#search_form {
+    flex-direction: column;
+}
+
+#search_form > * {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#search_form > :not(:last-child) {
+    height: calc(var(--height) - var(--sub-margin));
+    margin-bottom: var(--sub-margin);
+}
+
+#search_text_input {
+    --height: 37.5%;
+}
+
+#search_select_input {
+    --height: 37.5%;
+    font-size: var(--font-size-medium);
+}
+
+#search_form_submit_divider {
+    display: flex;
+    height: 25%;
+}
+
+#search_form_submit_divider > * {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+#search_form_submit_divider > :not(:first-child) {
+    margin-left: var(--sub-margin);
+}
+
+#settings_form {
+    flex-direction: row;
+}
+
+#settings_settings_container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 100%;
+}
+
+#settings_submit_container {
+    display: flex;
+    align-items: flex-end;
+    width: 20%;
+    height: 100%;
+}
+
+#settings_form_submit {
+    width: 100%;
+    height: 25%;
+}
+
+#settings_form_labels {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 25%;
+    font-size: 0;
+}
+
+#settings_form_labels > * {
+    position: absolute;
+}
+
+#settings_form_ranges {
+    display: flex;
+    height: 50%;
+    align-items: center;
+}
+
+#settings_form_ranges > * {
+    position: absolute;
+    display: block;
+    height: 10%;
+}
+
+#settings_form_inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 25%;
+}
+
+#settings_form_inputs > * {
+    width: 100%;
+    height: 100%;
+    margin-left: var(--sub-margin);
+    overflow: hidden;
+}
+
+#settings_form_inputs > :last-child {
+    margin-right: var(--sub-margin);
+}
+
+.settings_form_label {
+    font-family: Arial;
+    font-size: var(--font-size-medium);
+    text-align: center;
+}
+
+.settings_text_input {
+    width: 100%;
+}
+
+#disability_options {
+    --size: min(5vw, 5vh);
+    --off: min(1vw, 1vh);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    transform: translate(-100%);
+    left: calc(100% - var(--off));
+    top: var(--off);
+    width: var(--size);
+}
+
+#disability_options > :not(:last-child) {
+    margin-bottom: var(--off);
+}
+
+.disability_option:not(#change_color_theme) {
+    background-color: var(--main-col);
+}
+
+.disability_option {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#change_color_theme {
+    background-color: var(--cur-theme-col);
+    border: 2px solid var(--next-theme-col);
+}
+
+#change_font_size {
+    font-family: 'Times New Roman';
+    font-size: 150%;
+    text-align: center;
+}
+
+#toggle_animations {
+    overflow: hidden;
+}
+
+#toggle_animations_image, #no_image {
+    position: absolute;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-aspect-ratio: 2 / 3) {
+    #option_forms_container {
+        flex-direction: column;
+    }
+ 
+    #search_form_container {
+        --width: 100%;
+        --height: 50%;
+    }
+
+    #settings_form_container {
+        --width: 100%;
+        --height: 50%;
+    }
+}
